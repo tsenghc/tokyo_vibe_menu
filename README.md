@@ -208,9 +208,24 @@ export function useMyFeature() {
 
 ## 📦 部署
 
-### 自動部署
+### 自動部署 (推薦)
 
-推送到 `main` 或 `master` 分支會自動觸發 GitHub Actions 部署流程。
+1. **啟用 GitHub Pages**
+   - 前往 Repository Settings → Pages
+   - Source 選擇: "GitHub Actions"
+
+2. **推送到主分支**
+   ```bash
+   # 推送到 main 分支會自動觸發部署
+   git push origin main
+   ```
+
+3. **查看部署狀態**
+   - 訪問: `https://github.com/tsenghc/tokyo_vibe_menu/actions`
+   - 等待綠色勾選（通常 2-5 分鐘）
+
+4. **訪問網站**
+   - URL: `https://tsenghc.github.io/tokyo_vibe_menu/`
 
 ### 手動部署
 
@@ -219,6 +234,16 @@ export function useMyFeature() {
 npm run build
 npm run deploy
 ```
+
+### 🔍 部署故障排除
+
+如果部署後網頁沒有畫面，請查看 [DEPLOYMENT.md](./DEPLOYMENT.md) 獲取詳細的診斷步驟。
+
+常見問題：
+- ✅ 確認代碼已推送到 `main` 或 `master` 分支
+- ✅ 確認 GitHub Pages 已在 Settings 中啟用
+- ✅ 檢查 Actions 頁面是否有部署錯誤
+- ✅ 清除瀏覽器緩存重新訪問
 
 ## 🌟 版本歷史
 
