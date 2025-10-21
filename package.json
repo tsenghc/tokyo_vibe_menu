@@ -1,0 +1,33 @@
+{
+  "name": "tokyo-vibe-menu",
+  "version": "2.0.0",
+  "type": "module",
+  "description": "Tokyo Vibe 午餐選擇器 - Vue 3 版本",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "deploy": "npm run build && gh-pages -d dist",
+    "test:build": "npm run build && npm run preview"
+  },
+  "dependencies": {
+    "vue": "^3.5.13"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.2.1",
+    "vite": "^6.0.3",
+    "gh-pages": "^6.2.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tsenghc/tokyo_vibe_menu.git"
+  },
+  "keywords": [
+    "vue3",
+    "vite",
+    "lunch-picker",
+    "tokyo-vibe"
+  ],
+  "author": "",
+  "license": "MIT"
+}
