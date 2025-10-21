@@ -208,7 +208,32 @@ export function useMyFeature() {
 
 ## 📦 部署
 
-### 自動部署 (推薦)
+本專案支持兩種部署方式：
+
+### 方式 1: Cloudflare Pages（推薦）⚡
+
+**優點**：速度快、全球 CDN、免費、無限流量
+
+1. **在 Cloudflare 創建專案**
+   - 登入 [Cloudflare Dashboard](https://dash.cloudflare.com)
+   - Workers & Pages → Create application → Pages → Connect to Git
+
+2. **設置構建配置**
+   ```
+   Framework preset: Vite
+   Build command: npm run build
+   Build output directory: dist
+   ```
+
+3. **部署**
+   - 每次推送到 main 分支自動部署
+   - 訪問 Cloudflare 提供的 `.pages.dev` 網址
+
+📖 詳細說明：[CLOUDFLARE_DEPLOY.md](./CLOUDFLARE_DEPLOY.md)
+
+### 方式 2: GitHub Pages
+
+**優點**：與 GitHub 整合、免費託管
 
 1. **啟用 GitHub Pages**
    - 前往 Repository Settings → Pages
@@ -230,8 +255,13 @@ export function useMyFeature() {
 ### 手動部署
 
 ```bash
-# 構建並部署到 GitHub Pages
-npm run build
+# Cloudflare Pages
+npm run build              # 默認為 Cloudflare
+# 或
+npm run build:cloudflare   # 明確指定
+
+# GitHub Pages
+npm run build:github
 npm run deploy
 ```
 
@@ -239,11 +269,20 @@ npm run deploy
 
 如果部署後網頁沒有畫面，請查看 [DEPLOYMENT.md](./DEPLOYMENT.md) 獲取詳細的診斷步驟。
 
-常見問題：
-- ✅ 確認代碼已推送到 `main` 或 `master` 分支
-- ✅ 確認 GitHub Pages 已在 Settings 中啟用
-- ✅ 檢查 Actions 頁面是否有部署錯誤
-- ✅ 清除瀏覽器緩存重新訪問
+**常見問題**：
+
+1. **Cloudflare Pages 資源 404**
+   - ✅ 確認使用 `npm run build` 或 `npm run build:cloudflare`
+   - ✅ 檢查生成的 HTML 路徑是 `/assets/...` 而非 `/tokyo_vibe_menu/assets/...`
+
+2. **GitHub Pages 資源 404**
+   - ✅ 確認使用 `npm run build:github`
+   - ✅ 確認 GitHub Actions 使用正確的構建命令
+
+3. **其他問題**
+   - ✅ 確認代碼已推送到 `main` 或 `master` 分支
+   - ✅ 檢查構建日誌是否有錯誤
+   - ✅ 清除瀏覽器緩存重新訪問
 
 ## 🌟 版本歷史
 

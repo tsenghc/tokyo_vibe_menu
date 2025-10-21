@@ -10,8 +10,13 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
   },
-  // 使用環境變數來設定 base，方便本地開發和生產環境切換
-  base: process.env.NODE_ENV === 'production' ? '/tokyo_vibe_menu/' : '/',
+  // 使用環境變數來設定 base，支援不同的部署平台
+  // DEPLOY_PLATFORM=github -> GitHub Pages (需要 /tokyo_vibe_menu/)
+  // DEPLOY_PLATFORM=cloudflare -> Cloudflare Pages (使用 /)
+  // 默認使用相對路徑 ./ (最通用)
+  base: process.env.DEPLOY_PLATFORM === 'github'
+    ? '/tokyo_vibe_menu/'
+    : '/',
   build: {
     outDir: 'dist',
     assetsDir: 'assets',
