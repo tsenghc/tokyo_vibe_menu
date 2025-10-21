@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tokyo Vibe 午餐選擇器</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 標題區域 -->
+        <header class="header">
+            <h1 class="title">
+                <span class="title-main">東京午餐</span>
+                <span class="title-sub">ランチピッカー</span>
+            </h1>
+            <p class="subtitle">今天吃什麼呢？</p>
+        </header>
+
+        <!-- 結果顯示區域 -->
+        <div class="result-container">
+            <div class="result-card" id="resultCard">
+                <div class="result-icon">🍱</div>
+                <div class="result-text" id="resultText">按下按鈕開始選擇</div>
+            </div>
+        </div>
+
+        <!-- 控制按鈕 -->
+        <div class="controls">
+            <button class="btn btn-primary" id="pickBtn">
+                <span class="btn-icon">🎲</span>
+                <span>開始選擇</span>
+            </button>
+            <button class="btn btn-secondary" id="rePickBtn" style="display: none;">
+                <span class="btn-icon">🔄</span>
+                <span>重新選擇</span>
+            </button>
+        </div>
+
+        <!-- 歷史記錄 -->
+        <div class="history-section">
+            <h2 class="section-title">
+                <span>最近選擇</span>
+                <button class="btn-clear" id="clearHistoryBtn">清除</button>
+            </h2>
+            <div class="history-list" id="historyList">
+                <p class="empty-message">還沒有選擇記錄</p>
+            </div>
+        </div>
+
+        <!-- 餐廳列表 -->
+        <div class="restaurant-section">
+            <h2 class="section-title">
+                <span>餐廳列表</span>
+                <button class="btn-toggle" id="toggleListBtn">展開</button>
+            </h2>
+            <div class="restaurant-list collapsed" id="restaurantList">
+                <p class="list-hint">點擊餐廳可以臨時排除</p>
+                <div class="restaurant-grid" id="restaurantGrid">
+                    <!-- 餐廳列表將由JavaScript動態生成 -->
+                </div>
+                <div class="list-actions">
+                    <button class="btn btn-small" id="selectAllBtn">全選</button>
+                    <button class="btn btn-small" id="deselectAllBtn">全不選</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 頁腳 -->
+        <footer class="footer">
+            <p>Made with ❤️ in Tokyo Style</p>
+        </footer>
+    </div>
+
+    <!-- Loading overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
