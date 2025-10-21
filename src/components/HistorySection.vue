@@ -20,8 +20,16 @@
         class="history-item fade-in"
         :style="{ animationDelay: `${index * 0.05}s` }"
       >
-        <span class="history-name">{{ item.restaurant }}</span>
-        <span class="history-time">{{ item.displayTime }}</span>
+        <div class="history-info">
+          <span class="history-icon">{{ item.oilIcon || '🍱' }}</span>
+          <span class="history-name">{{ item.restaurant }}</span>
+        </div>
+        <div class="history-meta">
+          <span v-if="item.oilLevel !== undefined" class="history-oil" :class="`oil-${item.oilLevel}`">
+            {{ item.oilLevel }}油
+          </span>
+          <span class="history-time">{{ item.displayTime }}</span>
+        </div>
       </div>
     </div>
   </div>
@@ -83,9 +91,47 @@ const handleClear = () => {
   transform: translateX(5px);
 }
 
+.history-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.history-icon {
+  font-size: 1.5rem;
+}
+
 .history-name {
   font-size: 1.1rem;
   font-weight: 500;
+}
+
+.history-meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.history-oil {
+  padding: 3px 10px;
+  border-radius: 10px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.history-oil.oil-0 {
+  background: rgba(6, 255, 165, 0.2);
+  color: var(--neon-green);
+}
+
+.history-oil.oil-1 {
+  background: rgba(255, 190, 11, 0.2);
+  color: var(--neon-yellow);
+}
+
+.history-oil.oil-2 {
+  background: rgba(255, 0, 110, 0.2);
+  color: var(--neon-pink);
 }
 
 .history-time {

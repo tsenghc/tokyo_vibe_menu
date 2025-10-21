@@ -7,19 +7,22 @@
       </button>
     </h2>
     <div class="restaurant-list" :class="{ collapsed: !isExpanded }">
-      <p class="list-hint">點擊餐廳可以臨時排除</p>
+      <p class="list-hint">點擊餐廳可以臨時排除 | 油度標記: 🥗清淡 🍜中等 🍗重油</p>
       <div class="restaurant-grid">
         <div
-          v-for="restaurant in restaurants"
-          :key="restaurant"
+          v-for="restaurant in restaurantData"
+          :key="restaurant.name"
           class="restaurant-item"
           :class="{
-            active: !excludedRestaurants.has(restaurant),
-            disabled: excludedRestaurants.has(restaurant)
+            active: !excludedRestaurants.has(restaurant.name),
+            disabled: excludedRestaurants.has(restaurant.name),
+            'oil-filtered': oilFilterEnabled && !canEatRestaurant(restaurant.name) && !excludedRestaurants.has(restaurant.name)
           }"
-          @click="handleToggle(restaurant)"
+          @click="handleToggle(restaurant.name)"
         >
-          {{ restaurant }}
+          <span class="restaurant-icon">{{ getOilIcon(restaurant.oilLevel) }}</span>
+          <span class="restaurant-name">{{ restaurant.name }}</span>
+          <span class="restaurant-oil">{{ restaurant.oilLevel }}油</span>
         </div>
       </div>
       <div class="list-actions">
@@ -38,13 +41,25 @@
 import { ref } from 'vue'
 
 const props = defineProps({
-  restaurants: {
+  restaurantData: {
     type: Array,
     required: true
   },
   excludedRestaurants: {
     type: Set,
     default: () => new Set()
+  },
+  getOilIcon: {
+    type: Function,
+    required: true
+  },
+  canEatRestaurant: {
+    type: Function,
+    required: true
+  },
+  oilFilterEnabled: {
+    type: Boolean,
+    default: true
   }
 })
 
@@ -56,8 +71,8 @@ const toggleList = () => {
   isExpanded.value = !isExpanded.value
 }
 
-const handleToggle = (restaurant) => {
-  emit('toggle', restaurant)
+const handleToggle = (restaurantName) => {
+  emit('toggle', restaurantName)
 }
 
 const handleSelectAll = () => {
@@ -112,13 +127,16 @@ const handleDeselectAll = () => {
 
 .restaurant-item {
   background: var(--bg-card);
-  padding: 15px;
+  padding: 15px 12px;
   border-radius: var(--border-radius-sm);
-  text-align: center;
   cursor: pointer;
   transition: var(--transition);
   border: 2px solid transparent;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
 }
 
 .restaurant-item:hover {
@@ -144,6 +162,39 @@ const handleDeselectAll = () => {
   right: 8px;
   color: var(--neon-pink);
   font-size: 1.2rem;
+}
+
+.restaurant-item.oil-filtered {
+  border-color: var(--neon-yellow);
+  background: rgba(255, 190, 11, 0.1);
+  opacity: 0.7;
+}
+
+.restaurant-item.oil-filtered::before {
+  content: '⚠️';
+  position: absolute;
+  top: 5px;
+  left: 8px;
+  font-size: 1rem;
+}
+
+.restaurant-icon {
+  font-size: 2rem;
+}
+
+.restaurant-name {
+  font-size: 0.95rem;
+  font-weight: 500;
+  text-align: center;
+  line-height: 1.3;
+}
+
+.restaurant-oil {
+  font-size: 0.75rem;
+  padding: 2px 8px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text-secondary);
 }
 
 .list-actions {
