@@ -43,6 +43,9 @@
       @clear="clearHistory"
     />
 
+    <!-- 健康轉盤 -->
+    <HealthyWheel />
+
     <!-- 餐廳列表 -->
     <RestaurantList
       :restaurant-data="restaurantData"
@@ -72,6 +75,7 @@ import ControlButtons from './components/ControlButtons.vue'
 import ConsumedMeals from './components/ConsumedMeals.vue'
 import HistorySection from './components/HistorySection.vue'
 import RestaurantList from './components/RestaurantList.vue'
+import HealthyWheel from './components/HealthyWheel.vue'
 
 // 使用 composable
 const {
